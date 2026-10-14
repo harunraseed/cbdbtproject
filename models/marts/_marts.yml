@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: dim_customer
-    description: One row per customer version from the snapshot. Use is_current for today's view.
+    description: One row per customer version from the snapshot. Use is_current for today's view .......
     columns:
       - name: customer_key
         description: Surrogate key, hash of customer_id and valid_from.
