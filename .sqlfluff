@@ -1,0 +1,19 @@
+[sqlfluff]
+dialect = snowflake
+templater = jinja
+max_line_length = 120
+ignore = templating
+exclude_rules = AL01, AL07, ST06, RF04, LT05, RF02
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
+load_macros_from_path = macros
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower

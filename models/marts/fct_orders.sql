@@ -8,15 +8,15 @@
 with orders as (
     select * from {{ ref('stg_orders') }}
     {% if is_incremental() %}
-    where order_ts > (select dateadd(day, -3, max(order_ts)) from {{ this }})
+        where order_ts > (select dateadd(day, -3, max(order_ts)) from {{ this }})
     {% endif %}
 ),
 
 items as (
     select
         order_id,
-        count(*)       as item_count,
-        sum(quantity)  as total_quantity
+        count(*) as item_count,
+        sum(quantity) as total_quantity
     from {{ ref('stg_order_items') }}
     group by order_id
 ),
@@ -37,8 +37,8 @@ select
     c.customer_key,
     o.customer_id,
     o.order_channel,
-    t.primary_city        as truck_city,
-    c.city                as customer_city_at_order,
+    t.primary_city as truck_city,
+    c.city as customer_city_at_order,
     o.order_amount,
     o.order_total,
     i.item_count,
@@ -49,6 +49,7 @@ left join items i
 left join trucks t
     on o.truck_id = t.truck_id
 left join customers c
-    on o.customer_id = c.customer_id
-   and o.order_ts >= c.valid_from
-   and o.order_ts <  c.valid_to
+    on
+        o.customer_id = c.customer_id
+        and o.order_ts >= c.valid_from
+        and o.order_ts < c.valid_to

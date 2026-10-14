@@ -1,5 +1,5 @@
 select
-    {{dbt_utils.generate_surrogate_key(['m.menu_item_id']) }} as menu_item_sk,
+    {{ dbt_utils.generate_surrogate_key(['m.menu_item_id']) }} as menu_item_sk,
     m.menu_item_id,
     m.menu_item_name,
     m.menu_type,
