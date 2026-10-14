@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_orders
+    columns:
+      - name: order_id
+        data_tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null
+        
+      - name: order_channel
+        description: "{{doc('order_channel')}}"
+        data_tests:
+          - accepted_values:
+              values: ['Mobile', 'POS', 'Online', 'Phone']
+              config:
+                severity: warn
+  
+      - name: truck_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_trucks')
+              field: truck_id
+
+  - name: stg_order_items
+    columns:
+      - name: order_detail_id
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        data_tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id

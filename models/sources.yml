@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: tasty_bytes
+    database: TASTY_BYTES_SAMPLE_DATA
+    schema: RAW_POS
+    tables:
+      - name: order_header
+        loaded_at_field: order_ts
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 48, period: hour}
+      - name: order_detail
+      - name: menu
+      - name: truck
+      - name: location
+
+  - name: tasty_bytes_customer
+    database: TASTY_BYTES_SAMPLE_DATA
+    schema: RAW_CUSTOMER
+    tables:
+      - name: customer_loyalty
+  
