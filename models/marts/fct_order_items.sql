@@ -6,15 +6,15 @@ select
     o.order_date,
     o.truck_key,
     o.customer_key,
-    m.menu_item_sk     as menu_item_key,
+    m.menu_item_sk as menu_item_key,
     m.brand_category,
     p.quantity,
-    p.price            as line_revenue,
+    p.price as line_revenue,
     p.cost_of_goods,
     p.gross_profit,
     p.margin_pct
 from {{ ref('int_order_item_priced') }} p
-join {{ ref('fct_orders') }} o
+inner join {{ ref('fct_orders') }} o
     on p.order_id = o.order_id
-join {{ ref('dim_menu') }} m
+inner join {{ ref('dim_menu') }} m
     on p.menu_item_id = m.menu_item_id

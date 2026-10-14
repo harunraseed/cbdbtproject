@@ -4,8 +4,8 @@
 select
     cast(order_ts as date) as order_date,
     {% for ch in channels %}
-    sum(case when order_channel = '{{ ch }}' then order_total else 0 end)
-        as revenue_{{ ch | lower }}
+        sum(case when order_channel = '{{ ch }}' then order_total else 0 end)
+            as revenue_{{ ch | lower }}
         {% if not loop.last %},{% endif %}
     {% endfor %}
 from {{ ref('stg_orders') }}

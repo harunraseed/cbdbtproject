@@ -10,4 +10,4 @@ select
     i.price - (m.cost_of_goods_usd * i.quantity) as gross_profit,
     {{ margin_pct('i.price', 'm.cost_of_goods_usd * i.quantity') }} as margin_pct
 from {{ ref('stg_order_items') }} i
-join {{ ref('stg_menu') }} m on i.menu_item_id = m.menu_item_id
+inner join {{ ref('stg_menu') }} m on i.menu_item_id = m.menu_item_id
